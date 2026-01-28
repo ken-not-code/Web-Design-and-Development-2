@@ -1,0 +1,28 @@
+{
+  "name": "web-design-and-development-2",
+  "version": "1.0.0",
+  "description": "Repository for my Web Design and Development 2 subject, containing activities, exercises, and project outputs.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --dns-result-order=ipv4first Activities/Backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ken-not-code/Web-Design-and-Development-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/ken-not-code/Web-Design-and-Development-2/issues"
+  },
+  "homepage": "https://github.com/ken-not-code/Web-Design-and-Development-2#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.5"
+  }
+}
