@@ -1,13 +1,14 @@
 import express from "express";
-import User from "../Models/user";
+import User from "../Models/User.js";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
+  console.log("[auth/register] body:", req.body);
   const { username, email, password } = req.body;
   try {
-    if ((!username, !email, !password)) {
+    if (!username || !email || !password) {
       return res
         .status(400)
         .json({ message: "Please provide all required fields." });
@@ -27,14 +28,17 @@ router.post("/register", async (req, res) => {
       token: token,
     });
   } catch (err) {
-    res.status(500).json({ message: "Server error." });
+    console.error(err);
+    res
+      .status(500)
+      .json({ message: "Server error.", error: err.message, stack: err.stack });
   }
 });
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    if ((!email, !password)) {
+    if (!email || !password) {
       return res
         .status(400)
         .json({ message: "Please provide all required fields." });
@@ -52,7 +56,10 @@ router.post("/login", async (req, res) => {
       token: token,
     });
   } catch (err) {
-    res.status(500).json({ message: "Server error." });
+    console.error(err);
+    res
+      .status(500)
+      .json({ message: "Server error.", error: err.message, stack: err.stack });
   }
 });
 
@@ -61,7 +68,9 @@ router.post("/logout", (req, res) => {
 });
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error("JWT_SECRET is not set in environment");
+  return jwt.sign({ id }, secret, {
     expiresIn: "30d",
   });
 };
