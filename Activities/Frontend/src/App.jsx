@@ -14,7 +14,7 @@ import axios from "axios";
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-
+  console.log(user);
   useEffect(() => {
     const fecthUser = async () => {
       const token = localStorage.getItem("token");
@@ -37,9 +37,9 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Home user={user} error={error} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/register" element={<Register setUser={setUser} />} />
       </Routes>
     </Router>
   );
