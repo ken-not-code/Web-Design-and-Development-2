@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../Models/User.js";
 import jwt from "jsonwebtoken";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -63,8 +64,12 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/logout", (req, res) => {
+router.get("/me", auth, async (req, res) => {
   res.status(200).json(req.user);
+});
+
+router.post("/logout", auth, (req, res) => {
+  res.status(200).json({ message: "Logged out successfully." });
 });
 
 const generateToken = (id) => {

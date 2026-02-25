@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -14,23 +9,23 @@ import axios from "axios";
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  console.log(user);
   useEffect(() => {
-    const fecthUser = async () => {
+    const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const res = await axios.get("/api/auth/me", {
+          const res = await axios.get("/api/users/me", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUser(res.data);
         } catch (err) {
-          setError("failed to fetch user data");
+          setError("Failed to fetch user data.");
           localStorage.removeItem("token");
         }
       }
     };
-    fecthUser();
+
+    fetchUser();
   }, []);
 
   return (

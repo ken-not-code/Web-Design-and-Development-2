@@ -1,6 +1,6 @@
 import React from "react";
 
-const Home = (user, error) => {
+const Home = ({ user, error }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div>
@@ -11,10 +11,11 @@ const Home = (user, error) => {
             <p>{user.email}</p>
           </div>
         ) : (
-          <div></div>
+          <p className="text-gray-600">You are not logged in.</p>
         )}
       </div>
     </div>
   );
 };
+
 export default Home;
